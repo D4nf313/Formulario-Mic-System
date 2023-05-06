@@ -1,0 +1,10 @@
+.formulario {
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    margin-bottom: 8px;
+  }
+  
+  app-form-mic-system {
+    margin-left: 3%; 
+  }

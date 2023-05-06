@@ -1,0 +1,162 @@
+<form [formGroup]="myForm" (ngSubmit)="onSave()">
+  <div class="grid">
+    <div class="col">
+      <span class="p-float-label">
+        <input
+          class="w-full"
+          formControlName="productName"
+          id="float-input"
+          type="text"
+          pInputText
+        />
+        <label for="float-input">Nombre del Producto(*)</label>
+      </span>
+    </div>
+
+    <div class="col">
+      <span class="p-float-label">
+        <p-dropdown
+          [style]="{ width: '300px' }"
+          [options]="years"
+          formControlName="year"
+          optionLabel="label"
+          placeholder="Seleccione Año"
+        ></p-dropdown>
+        <label for="float-label">Fecha de presentación(*)</label>
+      </span>
+    </div>
+  </div>
+  <div class="grid">
+    <div class="col-fixed mt-3">
+      <span class="p-float-label ">
+        <p-autoComplete
+        [style]="{ width: '300px' }"
+          formControlName="city"
+          [suggestions]="filteredCities"
+          (completeMethod)="filterCity($event)"
+          field="name"
+          id="autocomplete"
+          [forceSelection]="true"
+        ></p-autoComplete>
+        <label for="autocomplete">Ciudad(*)</label>
+      </span>
+    </div>
+    <div class="col-4">
+      <span class="p-fluid">
+        <label class="letra" for="multiple">Público Objetivo(*)</label>
+        <p-autoComplete
+        
+          formControlName="objectPublic"
+          [dropdown]="true"
+          [suggestions]="filteredPublic"
+          (completeMethod)="filterPublic($event)"
+          field="name"
+          [multiple]="true"
+          id="multiple"
+        ></p-autoComplete>
+      </span>
+    </div>
+  </div>
+
+  <div class="grid ">
+    <div class="col-4 mt-3">
+      <span class="p-float-label pb-3">
+        <p-dropdown
+          [style]="{ width: '300px' }"
+          [options]="route"
+          formControlName="route"
+          optionLabel="name"
+          placeholder="Tipo(*)"
+        ></p-dropdown>
+        <label for="float-label">Seleccione(*)</label>
+      </span>
+      <span >
+        <span class="p-float-label">
+          <span class="p-float-label">
+            <p-dropdown
+              [style]="{ width: '300px' }"
+              [options]="investigation"
+              formControlName="proyectType"
+              optionLabel="name"
+              placeholder="seleccione(*)"
+            ></p-dropdown>
+            <label for="float-label">Proyecto de investigación(*)</label>
+          </span>
+        </span>
+      </span>
+    </div>
+
+    <div class="col-4">
+      <div class="grid">
+        <div class="col ms-4">
+          <span class="flex align-items-center gap-1">
+            <label  class="letra" for="checone">Enfoque diferencial</label>
+            <p-inputSwitch
+              class="p-3"
+              formControlName="differential"
+              id="checkone"
+            ></p-inputSwitch>
+          </span>
+        </div>
+      
+          <div class="col card flex justify-content-center" *ngIf="bandDifferential">
+      
+              <div  class="flex flex-wrap gap-12 "*ngFor="let category of categories" class="field-checkbox flex align-items-center">
+                <p-radioButton
+                  [inputId]="category.key"
+                  [value]="category"
+                  formControlName="selecteDifferent"
+                ></p-radioButton>
+                <label [for]="category.key" class="ml-2 letra">{{
+                  category.name
+                }}</label>
+              </div>
+        
+          </div>
+      
+
+
+
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="flex md:align-items-center align-items-stretch flex-wrap card-container">
+      <span class="p-float-label mr-3 ">
+        <textarea
+          rows="8"
+          cols="60"
+          pInputTextarea
+          formControlName="description"
+          (input)="updateWordCountGenere()"
+        ></textarea>
+        <label for="float-input">Descripción del género</label>
+        <div class="word-counter letra">
+          {{ wordCountGenere }} / 4000 palabras permitidas
+        </div>
+      </span>
+      <span class="p-float-label">
+        <textarea
+          rows="8"
+          cols="60"
+          pInputTextarea
+          formControlName="concepts"
+          (input)="updateWordCountConcepts()"
+        ></textarea>
+        <label for="float-input">Lineamientos conceptuales</label>
+        <div class="word-counter letra">
+          {{ wordCountConcept }} / 4000 palabras permitidas
+        </div>
+      </span>
+
+
+
+    </div>
+  </div>
+
+
+  <div class="mt-4">
+    <p-button [disabled]="myForm.invalid"  type="submit" label="Submit" icon="pi pi-check"></p-button>
+  </div>
+</form>
